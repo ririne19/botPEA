@@ -1,12 +1,14 @@
 import logging
+
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
+    ContextTypes,
     MessageHandler,
     filters,
-    ContextTypes,
 )
+
 from src.config import TELEGRAM_BOT_TOKEN
 from src.database.db import init_db
 from src.handlers.conversation import handle_message

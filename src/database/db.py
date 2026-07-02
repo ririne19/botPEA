@@ -1,7 +1,9 @@
 import json
 from pathlib import Path
+
 from sqlalchemy import create_engine, desc
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session, sessionmaker
+
 from src.database.models import Base, Conversation, UserPreferences
 
 DB_PATH = Path(__file__).parent.parent.parent / "data" / "bot.db"

@@ -1,0 +1,6 @@
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "I"]    # E=style, F=erreurs, I=imports
+ignore = ["E501"]            # on ignore les lignes trop longues (ruff le gère avec line-length)
