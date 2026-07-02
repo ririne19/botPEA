@@ -114,8 +114,21 @@ async def get_company_news(ticker: str, from_date: str, to_date: str) -> list[Ne
         for article in articles[:5]
     ]
 
+async def get_company_name(ticker: str) -> str:
+    """Récupère le nom complet d'une entreprise via Finnhub."""
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(
+                f"{BASE_URL}/stock/profile2",
+                params={"symbol": ticker, "token": FINNHUB_API_KEY},
+            )
+            response.raise_for_status()
+            data = response.json()
+            return str(data.get("name", ticker))
+        except Exception:
+            return ticker  # Retourne le ticker si le nom n'est pas trouvable
 
-def format_quote_message(quote: QuoteResult) -> str:
+def format_quote_message(quote: QuoteResult, company_name: str = "") -> str:
     """Formate un cours en message lisible pour Telegram."""
     if "error" in quote:
         return f"❌ {quote.get('ticker')} : {quote.get('error')}"
@@ -123,9 +136,12 @@ def format_quote_message(quote: QuoteResult) -> str:
     variation = float(str(quote.get("variation_pct", 0)))
     emoji = "📈" if variation >= 0 else "📉"
     signe = "+" if variation >= 0 else ""
+    
+    # Affiche le nom complet si disponible, sinon juste le ticker
+    titre = f"{company_name} ({quote.get('ticker')})" if company_name else str(quote.get('ticker'))
 
     return (
-        f"{emoji} **{quote.get('ticker')}**\n"
+        f"{emoji} **{titre}**\n"
         f"Prix actuel : {quote.get('prix_actuel')} €\n"
         f"Variation : {signe}{variation}%\n"
         f"Haut/Bas du jour : {quote.get('haut_jour')} / {quote.get('bas_jour')}"
