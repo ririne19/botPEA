@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-from src.database.db import save_message, get_conversation_history
+
+from src.database.db import get_conversation_history, save_message
 from src.services.groq_service import get_groq_response
 
 SYSTEM_PROMPT = """Tu es un assistant personnel spécialisé dans la gestion d'un PEA (Plan d'Épargne en Actions) Boursorama.
