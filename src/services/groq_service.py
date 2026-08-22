@@ -9,7 +9,7 @@ client = Groq(api_key=GROQ_API_KEY)
 async def get_groq_response(
     history: list[dict[str, str]],
     system_prompt: str,
-    model: str = "llama-3.3-70b-versatile",
+    model: str = "openai/gpt-oss-120b",
 ) -> str:
     messages: list[ChatCompletionMessageParam] = [
         {"role": "system", "content": system_prompt},
