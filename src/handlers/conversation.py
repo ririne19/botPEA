@@ -73,7 +73,7 @@ async def detect_intent(message: str) -> dict[str, object]:
     response = await get_groq_response(
         history=[{"role": "user", "content": INTENT_PROMPT + message}],
         system_prompt="Tu es un classificateur d'intentions. Tu retournes UNIQUEMENT du JSON valide, rien d'autre.",
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
     )
 
     try:
