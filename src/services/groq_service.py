@@ -1,7 +1,7 @@
 from groq import Groq
 from groq.types.chat import ChatCompletionMessageParam
 
-from src.config import GROQ_API_KEY
+from src.config import GROQ_API_KEY, GROQ_MODEL
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -9,7 +9,7 @@ client = Groq(api_key=GROQ_API_KEY)
 async def get_groq_response(
     history: list[dict[str, str]],
     system_prompt: str,
-    model: str = "openai/gpt-oss-120b",
+    model: str = GROQ_MODEL or "openai/gpt-oss-120b",
 ) -> str:
     messages: list[ChatCompletionMessageParam] = [
         {"role": "system", "content": system_prompt},

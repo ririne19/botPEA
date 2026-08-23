@@ -51,7 +51,7 @@ Construire un bot conversationnel Telegram, codé en Python, qui agit comme un c
 | Composant | Choix | Justification |
 |---|---|---|
 | Langage | Python 3.12+ | Niveau déjà solide, écosystème riche pour ce type de projet |
-| IA conversationnelle | Groq API (Llama 3.3 70B) | Gratuit (rate-limited, pas de facturation), rapide, qualité largement suffisante. API compatible format OpenAI. |
+| IA conversationnelle | Groq API (openai/gpt-oss-120b, configurable via `GROQ_MODEL`) | Gratuit (rate-limited, pas de facturation), rapide, qualité largement suffisante. API compatible format OpenAI. |
 | Réception messages | python-telegram-bot (polling en dev → webhook en prod) | Librairie mature, bien documentée |
 | Base de données | SQLite (dev) → Postgres (prod, si besoin) | Légère, suffisante pour stocker l'historique de conversation et l'état utilisateur |
 | Stockage métier | Notion (API officielle) | Déjà en place, source de vérité pour transactions/budget |
@@ -87,7 +87,7 @@ Ces deux usages (workflows programmés) correspondent à ce que Make fait bien n
 ```
 ┌─────────────┐      ┌──────────────────┐      ┌─────────────┐
 │   Telegram   │◄────►│   Bot Python      │◄────►│  Groq API    │
-│  (utilisateur)│      │  (Render, free)   │      │ (Llama 3.3)  │
+│  (utilisateur)│      │  (Render, free)   │      │ (gpt-oss-120b)│
 └─────────────┘      └────────┬──────────┘      └─────────────┘
                                │
                 ┌──────────────┼───────────────┐
